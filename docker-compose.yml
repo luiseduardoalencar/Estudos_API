@@ -1,6 +1,20 @@
 version: "4.22.0"
 
 services:
+    database_estudos:
+        image: postgres
+        container_name: database_estudos
+        restart: always
+        ports: 
+            - 5432:5432
+        environment:
+            - POSTGRES_USER=docker
+            - POSTGRES_PASSWORD=admin
+            - POSTGRES_DB=partneships_api
+        volumes:
+            - pgdata:/data/postgres
+        network_mode: host
+
     app:
         build: .
         container_name: partineships_api
@@ -8,3 +22,6 @@ services:
             - 3333:3333
         volumes:
             - .:/usr/app
+
+volumes:
+    pgdata:
